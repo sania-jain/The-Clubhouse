@@ -1,12 +1,12 @@
 :root {
   --color-bg: #000014;
-  --color-bg-card: #0a0a24;
+  --color-bg-card: #0f0f1e;
   --color-primary: #8C183E;
   --color-accent: #F5A657;
   --color-secondary: #54AB97;
   --color-text: #f2f2f2;
   --color-text-muted: #9a9aab;
-  --color-border: #1e1e3a;
+  --color-border: #0d0d13;
 
   font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
   color-scheme: dark;

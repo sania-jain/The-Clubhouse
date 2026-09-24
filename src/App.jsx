@@ -26,7 +26,7 @@ export default function App() {
       >
         <strong>VTRisk</strong>
         <nav style={{ display: "flex", gap: 8 }}>
-          <Link to="/" style={linkStyle("/")}>Bets</Link>
+          <Link to="/" style={linkStyle("/")}>Home</Link>
           <Link to="/leaderboard" style={linkStyle("/leaderboard")}>Leaderboard</Link>
           <Link to="/events" style={linkStyle("/events")}>Events</Link>
         </nav>

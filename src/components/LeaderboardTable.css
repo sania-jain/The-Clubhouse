@@ -16,7 +16,7 @@
 }
 
 .lb-table thead th {
-  background-color: #10102e;
+  background-color: #0f0f1e;
   border-bottom: 2px solid var(--color-accent);
   color: var(--color-text-muted);
   font-size: 0.8rem;
@@ -30,7 +30,7 @@
 }
 
 .lb-table tbody tr:hover td {
-  background-color: #10102e;
+  background-color: #0f0f1e;
 }
 
 .lb-table .lb-num {
@@ -57,7 +57,7 @@
 
 .lb-table .lb-you-label-row td {
   padding: 10px 20px;
-  background-color: #10102e;
+  background-color: #0f0f1e;
   border-top: 2px solid var(--color-primary);
   color: var(--color-text-muted);
   font-size: 0.75rem;
