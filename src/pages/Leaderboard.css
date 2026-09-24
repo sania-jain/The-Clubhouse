@@ -68,6 +68,37 @@
   color: #e0587f;
 }
 
+.lb-table .lb-you-label-row td {
+  padding: 10px 20px;
+  background-color: #10102e;
+  border-top: 2px solid var(--color-primary);
+  color: var(--color-text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.lb-you-row td {
+  background-color: rgba(140, 24, 62, 0.18);
+  font-weight: 600;
+}
+
+.lb-you-row td:first-child {
+  box-shadow: inset 3px 0 0 var(--color-primary);
+}
+
+.lb-you-tag {
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background-color: var(--color-primary);
+  font-size: 0.7rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  vertical-align: middle;
+}
+
 @media (max-width: 640px) {
   .lb-table th,
   .lb-table td {

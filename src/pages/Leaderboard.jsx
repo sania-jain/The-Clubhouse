@@ -1,9 +1,13 @@
-import { leaderboard } from "../data/mockData.js";
+import { leaderboard, currentUser } from "../data/mockData.js";
 import "./Leaderboard.css";
 
 const MEDALS = { 1: "🥇", 2: "🥈", 3: "🥉" };
 
 export default function Leaderboard() {
+  const lastShown = leaderboard[leaderboard.length - 1];
+  const pointsBehind = lastShown.points - currentUser.balance;
+  const userUp = currentUser.changePct >= 0;
+
   return (
     <div className="lb">
       <h1 className="lb-title">Leaderboard</h1>
@@ -34,6 +38,27 @@ export default function Leaderboard() {
               </tr>
             ))}
           </tbody>
+          <tfoot>
+            <tr className="lb-you-label-row">
+              <td colSpan={5}>Your current position</td>
+            </tr>
+            <tr className="lb-you-row">
+              <td className="lb-rank">
+                <span className="lb-medal" />
+                {currentUser.rank}
+              </td>
+              <td>
+                {currentUser.name} <span className="lb-you-tag">You</span>
+              </td>
+              <td className="muted lb-col-detail">
+                {pointsBehind.toLocaleString()} pts behind #{lastShown.rank}
+              </td>
+              <td className={`lb-num lb-trend--${userUp ? "up" : "down"}`}>
+                {userUp ? "▲" : "▼"} {Math.abs(currentUser.changePct)}%
+              </td>
+              <td className="lb-num lb-points">{currentUser.balance.toLocaleString()}</td>
+            </tr>
+          </tfoot>
         </table>
       </div>
     </div>
