@@ -1,4 +1,4 @@
-import { events, currentUser } from "../data/mockData.js";
+import { events, myBetEventIds } from "../data/mockData.js";
 import EventCard from "../components/EventCard.jsx";
 import LeaderboardTable from "../components/LeaderboardTable.jsx";
 
