@@ -71,3 +71,51 @@ export const upcomingEvents = [
   { id: 2, day: "24", month: "SEP", title: "Trivia Night Pool", subtitle: "Squires · 7:00 PM" },
   { id: 3, day: "28", month: "SEP", title: "Hokies vs Hurricanes", subtitle: "Basketball · 6:00 PM" },
 ];
+
+const EVENT_DETAILS = {
+  1: {
+    tag: "LIVE",
+    tagColor: "primary",
+    category: "Football",
+    closes: "Closes today, 6:30 PM",
+    volume: 48200,
+    options: [
+      { label: "VT", probability: 62, change: 4.1, probHistory: [51, 54, 53, 57, 59, 62] },
+      { label: "UVA", probability: 38, change: -4.1, probHistory: [49, 46, 47, 43, 41, 38] },
+    ],
+  },
+  2: {
+    tag: "NEW",
+    tagColor: "secondary",
+    category: "Campus",
+    closes: "Closes Sep 24, 7:00 PM",
+    volume: 2140,
+    options: [
+      { label: "Team Trivia Titans", probability: 41, change: 3.2, probHistory: [32, 34, 35, 37, 39, 41] },
+      { label: "Field", probability: 59, change: -3.2, probHistory: [68, 66, 65, 63, 61, 59] },
+    ],
+  },
+  3: {
+    tag: "CLOSING SOON",
+    tagColor: "accent",
+    category: "Basketball",
+    closes: "Closes Sep 28, 6:00 PM",
+    volume: 5120,
+    options: [
+      { label: "VT", probability: 54, change: 1.2, probHistory: [50, 51, 52, 51, 53, 54] },
+      { label: "MIA", probability: 46, change: -1.2, probHistory: [50, 49, 48, 49, 47, 46] },
+    ],
+  },
+};
+
+export const events = upcomingEvents.map((e) => {
+  const details = EVENT_DETAILS[e.id] ?? {
+    tag: "UPCOMING",
+    tagColor: "secondary",
+    category: "General",
+    closes: `${e.day} ${e.month}`,
+    volume: 0,
+    options: [],
+  };
+  return { ...e, ...details };
+});

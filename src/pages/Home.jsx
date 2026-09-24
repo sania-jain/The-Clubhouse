@@ -1,26 +1,22 @@
-import { currentBets, leaderboard, currentUser } from "../data/mockData.js";
+import { events, currentUser } from "../data/mockData.js";
+import EventCard from "../components/EventCard.jsx";
+import LeaderboardTable from "../components/LeaderboardTable.jsx";
 
-// Placeholder Home page — proves data + routing works.
-// Will be rebuilt using the shared components (BetCard, LeaderboardTable, etc.)
+// Home page built from the shared components. "Your Points" is still a
+// placeholder until PointsChart exists.
 export default function Home() {
   return (
     <div>
       <h1>Current Bets</h1>
-      <ul>
-        {currentBets.map((bet) => (
-          <li key={bet.id}>{bet.title} — {bet.subtitle}</li>
+      <div className="ev-grid">
+        {events.map((event) => (
+          <EventCard key={event.id} event={event} />
         ))}
-      </ul>
+      </div>
 
       <h2>Leaderboard (top 5)</h2>
-      <ol>
-        {leaderboard.map((p) => (
-          <li key={p.rank}>{p.name} — {p.points.toLocaleString()} pts</li>
-        ))}
-      </ol>
+      <LeaderboardTable />
 
-      <h2>Your Points</h2>
-      <p className="accent-text">{currentUser.balance.toLocaleString()} pts</p>
     </div>
   );
 }
