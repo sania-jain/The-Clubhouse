@@ -62,7 +62,7 @@ export const currentUser = {
   balance: 2480,
   rank: 47,
   changePct: 12.4,
-  peakThisMonth: 3150,
+  peakThisMonth: 2480,
   pointsHistory: [1800, 1950, 1870, 2050, 2200, 2120, 2300, 2260, 2400, 2350, 2480],
 };
 
@@ -114,7 +114,7 @@ const EVENT_DETAILS = {
     tag: "TRENDING",
     tagColor: "accent",
     category: "Campus",
-    closes: "Closes Fri, 11:59 PM",
+    closes: "Closes Sat, 11:59 PM",
     volume: 14750,
     options: [
       { label: "Jordan M.", probability: 34, change: 5.4, probHistory: [22, 25, 27, 30, 32, 34] },

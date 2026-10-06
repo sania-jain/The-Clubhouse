@@ -12,18 +12,19 @@ git clone <REPO_URL>
 cd The-Clubhouse
 ```
 
-## 2. Use Node 20 (important)
+## 2. Use Node 22 (important)
 
 Check your version first:
 ```
 node -v
 ```
-You want **20.x or 22.x**. If you're on something else (especially an odd
-version like 21, which is not LTS), install nvm and switch:
+You want **22.x**. The Supabase client (`@supabase/supabase-js`) requires
+Node 22 or newer, and Node 20 is past end-of-life. If you're on something
+else, install nvm and switch:
 ```
 brew install nvm
-nvm install 20
-nvm use 20
+nvm install 22
+nvm use 22
 ```
 This project deliberately pins **Vite 5** and **React 18** (not the newest
 majors) because the latest Vite ships an experimental bundler that has a
@@ -52,16 +53,26 @@ npm install
 
 ```
 src/
-├── main.jsx              # entry point + route definitions
-├── App.jsx                # layout shell: nav bar + page outlet
-├── index.css               # global stylesheet — color variables live here
+├── main.jsx                 # entry point + route definitions
+├── App.jsx                  # layout shell: nav bar + page outlet
+├── index.css                # global stylesheet, color variables live here
+├── lib/
+│   └── supabase.js          # Supabase client (reads .env.local)
 ├── data/
-│   └── mockData.js         # all hardcoded bets, leaderboard, events, user data
-├── components/             # (empty for now — shared UI pieces go here)
+│   ├── DataProvider.jsx     # loads data once; components call useData()
+│   ├── api.js               # Supabase queries -> same shapes as mockData.js
+│   └── mockData.js          # fallback demo data when Supabase isn't set up
+├── components/              # shared UI: EventCard, LeaderboardTable, Sparkline
 └── pages/
-    ├── Home.jsx             # currently a plain placeholder list
-    ├── Leaderboard.jsx       # currently a plain placeholder list
-    └── Events.jsx            # currently a plain placeholder list
+    ├── Home.jsx             # your current bets + top-5 leaderboard
+    ├── Leaderboard.jsx      # full leaderboard table
+    └── Events.jsx           # all events with category filter
+
+supabase/
+├── migrations/              # every database change, in order
+├── seed.sql                 # demo data for a brand-new database
+├── config.toml              # Supabase CLI settings
+└── README.md                # how the backend works + how to change it
 ```
 
 ## 5. Color palette
@@ -94,11 +105,12 @@ routing work. Next steps:
 
 ## Notes for contributing
 
-- Don't hardcode data inside components. Read it with `useData()`. Demo
-  data lives in both `supabase/seed.sql` and `mockData.js`, so keep the two
-  in sync.
-- Database changes go in a new file in `supabase/migrations/` (see
-  `supabase/README.md`).
+- Don't hardcode data inside components. Read it with `useData()`.
+- Every database change, including demo-data edits, goes in a new migration
+  in `supabase/migrations/`, applied with `npx supabase db push`, never the
+  SQL Editor. Mirror demo-data changes in `seed.sql` and `mockData.js` too.
+  Editing `seed.sql` alone doesn't change the live database. See
+  `supabase/README.md`.
 - No new dependencies without a quick check-in — the goal is to keep this
   simple and easy to run for everyone.
 - Pull latest and reinstall (`npm install`) after pulling in case

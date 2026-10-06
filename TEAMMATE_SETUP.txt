@@ -5,12 +5,19 @@ The app now loads its data (events, leaderboard, your bets) from a Supabase
 database instead of the hardcoded mockData.js. The database is already set
 up. You just need to connect your copy of the app to it.
 
-If you skip this, the app still runs. It falls back to the mock data, so
-nothing breaks.
+Step 1 is required: without npm install the app won't start. If you skip
+steps 2-4, the app still runs on the mock data.
 
 
 1. PULL AND INSTALL
 -------------------
+Check you're on Node 22 first:
+
+    node -v            (should print v22.x)
+
+The new Supabase package needs Node 22 or newer. If you're on 20, run
+"nvm install 22" and then "nvm use 22".
+
     git switch main
     git pull
     npm install
@@ -23,12 +30,11 @@ npm install matters this time: we added a new package (@supabase/supabase-js).
 Check your email for an invite to the "Clubhouse" organization on
 supabase.com and accept it. If you didn't get one, ask OkarinLe.
 
-Once you're in, open the project in the dashboard and go to:
-    Project Settings -> API
-
-You need two values from there:
-    - Project URL      (https://....supabase.co)
+Once you're in, open the project in the dashboard and click the "Connect"
+button at the top. It shows the two values you need:
+    - Project URL      https://titmklynbrpqxrmisajp.supabase.co
     - Publishable key  (starts with sb_publishable_)
+The key is also under Project Settings -> API Keys.
 
 Do NOT use the "secret" or "service_role" key. It bypasses all security
 rules, and anything in the app gets sent to the browser.
@@ -63,10 +69,11 @@ How to tell it's working:
     - On the Events page, the first card says "Closes Sep 21, 6:30 PM".
       (The mock data says "Closes today, 6:30 PM".)
     - The browser console (F12) does NOT say
-      "Supabase isn't configured, using mock data."
+      "Supabase isn't configured (see .env.example), using mock data."
 
 If the page says "Couldn't load data from Supabase", double-check the two
-values in .env.local and restart npm run dev.
+values in .env.local (the URL must start with https://) and restart
+npm run dev.
 
 
 RULES FOR WORKING WITH THE DATA
@@ -81,21 +88,28 @@ RULES FOR WORKING WITH THE DATA
   website until sign-in is added. There's no login yet, so the demo player
   "JD" is treated as "you".
 
-- Don't change the database by clicking around in the Supabase dashboard.
-  Every change goes in a new migration file so it's reviewed in a PR and
-  everyone ends up with the same database:
+- Don't change the database by clicking around in the Supabase dashboard,
+  and never paste a migration into the SQL Editor. The CLI keeps track of
+  which migrations have run, and SQL run in the editor isn't tracked, so
+  the next db push would fail. Every change goes in a new migration file
+  so it's reviewed in a PR and everyone ends up with the same database:
 
       npx supabase login
       npx supabase link --project-ref titmklynbrpqxrmisajp
       npx supabase migration new describe_your_change
         (write your SQL in the new file under supabase/migrations/)
+      npx supabase db push --dry-run     (shows what would run)
       npx supabase db push
 
   Check with the team before running db push. It changes the shared
   database for everyone.
 
-- If you change the demo data, update BOTH supabase/seed.sql and
-  src/data/mockData.js so the two stay the same.
+- Editing supabase/seed.sql does NOT change the live database. The seed
+  only runs when a database is created from scratch. To change the demo
+  data, do all three:
+    1. a migration with the UPDATE/INSERT statements (then db push)
+    2. the same change in supabase/seed.sql
+    3. the same change in src/data/mockData.js
 
 - node_modules is still tracked in git (to be fixed). Don't run "git add ."
   or "git add -A". Only add the files you actually changed.
