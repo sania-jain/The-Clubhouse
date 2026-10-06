@@ -1,14 +1,15 @@
 import { useMemo, useState } from "react";
-import { events } from "../data/mockData.js";
+import { useData } from "../data/DataProvider.jsx";
 import EventCard from "../components/EventCard.jsx";
 import "./Events.css";
 
 export default function Events() {
+  const { events } = useData();
   const [activeCategory, setActiveCategory] = useState("All");
 
   const categories = useMemo(
     () => ["All", ...new Set(events.map((e) => e.category))],
-    []
+    [events]
   );
 
   const filteredEvents = useMemo(
@@ -16,7 +17,7 @@ export default function Events() {
       activeCategory === "All"
         ? events
         : events.filter((e) => e.category === activeCategory),
-    [activeCategory]
+    [events, activeCategory]
   );
 
   return (

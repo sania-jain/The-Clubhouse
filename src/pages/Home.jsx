@@ -1,10 +1,12 @@
-import { events, myBetEventIds } from "../data/mockData.js";
+import { useData } from "../data/DataProvider.jsx";
 import EventCard from "../components/EventCard.jsx";
 import LeaderboardTable from "../components/LeaderboardTable.jsx";
 
 // Home page built from the shared components. "Your Points" is still a
 // placeholder until PointsChart exists.
 export default function Home() {
+  const { events, myBetEventIds } = useData();
+
   // Only show events the user actually has a bet on, not every event on
   // the platform — same `events` data as the Events page, just scoped down.
   const myBets = events.filter((event) => myBetEventIds.includes(event.id));

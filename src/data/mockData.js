@@ -1,5 +1,5 @@
-// All demo data lives here. Nothing is persisted — this is just
-// in-memory data the components read from on load.
+// Fallback demo data, used when Supabase isn't configured (see
+// .env.example). Keep it in sync with supabase/seed.sql.
 
 export const currentBets = [
   {

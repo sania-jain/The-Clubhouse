@@ -1,10 +1,11 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { currentUser } from "./data/mockData.js";
+import { useData } from "./data/DataProvider.jsx";
 
 // Temporary inline nav — this gets replaced by the full Navbar
 // component in the next step. Kept here now just so routing works.
 export default function App() {
   const location = useLocation();
+  const { currentUser } = useData();
 
   const linkStyle = (path) => ({
     padding: "8px 16px",

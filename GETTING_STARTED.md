@@ -1,8 +1,9 @@
 # VTRisk Demo — Getting Started
 
-A local-only React prototype of the VTRisk homepage. No backend, no database —
-all data is hardcoded in `src/data/mockData.js` so we can focus on layout,
-navigation, and styling first.
+A React prototype of the VTRisk homepage. Data comes from a Supabase
+database (see `supabase/README.md`), and falls back to the hardcoded data in
+`src/data/mockData.js` when Supabase isn't set up, so the app always runs
+locally.
 
 ## 1. Clone the repo
 
@@ -93,8 +94,11 @@ routing work. Next steps:
 
 ## Notes for contributing
 
-- Keep all data changes in `mockData.js` — don't hardcode data inside
-  components.
+- Don't hardcode data inside components. Read it with `useData()`. Demo
+  data lives in both `supabase/seed.sql` and `mockData.js`, so keep the two
+  in sync.
+- Database changes go in a new file in `supabase/migrations/` (see
+  `supabase/README.md`).
 - No new dependencies without a quick check-in — the goal is to keep this
   simple and easy to run for everyone.
 - Pull latest and reinstall (`npm install`) after pulling in case

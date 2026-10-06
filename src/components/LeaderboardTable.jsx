@@ -1,9 +1,10 @@
-import { leaderboard, currentUser } from "../data/mockData.js";
+import { useData } from "../data/DataProvider.jsx";
 import "./LeaderboardTable.css";
 
 const MEDALS = { 1: "🥇", 2: "🥈", 3: "🥉" };
 
 export default function LeaderboardTable() {
+  const { leaderboard, currentUser } = useData();
   const lastShown = leaderboard[leaderboard.length - 1];
   const pointsBehind = lastShown.points - currentUser.balance;
   const userUp = currentUser.changePct >= 0;
